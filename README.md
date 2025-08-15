@@ -1,0 +1,2 @@
+## React Practice Projects
+This repo contains a collation of react projects I got from Codepaths WEB 102's Lab activity to hone my skills and increase my experience in frontend development, JavaScript and the React Library
