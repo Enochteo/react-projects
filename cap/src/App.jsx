@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import APIForm from './components/APIForm';
+import Gallery from './components/Gallery';
 
 const ACCESS_KEY = import.meta.env.VITE_APP_ACCESS_KEY
 
@@ -13,6 +14,7 @@ function App() {
     width: "",
     height: ""
   });
+  const [images, setprevImages] = useState([])
   const reset = () => {
     setInputs({
     url: "",
@@ -31,6 +33,7 @@ function App() {
     try {
       const response = await fetch(query);
       if (!response.ok) {
+        console.log(response.error)
         alert("An error occurred while making the API call.");
         return;
       }
@@ -40,6 +43,8 @@ function App() {
         return;
       }
       setCurrentImage(json.url);
+      setprevImages((images) => [...images, json.url]);
+      reset();
     } catch (error) {
       console.error("API call failed:", error);
       alert("Something went wrong. Please try again.")
@@ -63,11 +68,13 @@ function App() {
     ...inputs,
   };
 
-  const query = `https://api.apiflash.com/v1/urltoimage?access_key=${ACCESS_KEY}&url=https://${finalInputs.url}&format=${finalInputs.format}&no_ads=${finalInputs.no_ads}&no_cookie_banners=${finalInputs.no_cookie_banners}&width=${finalInputs.width}&height=${finalInputs.height}`;
+  const query = `https://api.apiflash.com/v1/urltoimage?access_key=${ACCESS_KEY}&url=https://${finalInputs.url}&format=${finalInputs.format}&no_ads=${finalInputs.no_ads}&no_cookie_banners=${finalInputs.no_cookie_banners}&width=${finalInputs.width}&height=${finalInputs.height}&response_type=json`;
   callAPI(query).catch(console.error);
+  //setCurrentImage(query);
     };
   return (  
     <div className='whole-page'>
+      {error && <div className="error">{error}</div>}
       <h1>Build your own Screenshot</h1>
 
       <APIForm inputs={inputs}
@@ -103,6 +110,9 @@ function App() {
           <br></br>
       </p> </div>
       <br></br>
+      <div className='container'>
+        <Gallery images={images} />
+      </div>
     </div>
   )
 };
