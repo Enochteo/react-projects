@@ -9,3 +9,5 @@ This repo contains a collation of react projects I got from Codepaths WEB 102's 
 - Barista-app: A quiz game to test one's barista skills by building up particular reciepies from lists of ingredients. It uses form input parsing, state and json comparison to judge the barista's recipe.
 
 - CAP: A web-app that provides an interface for you to take screenshots with your own query prompts using an API from Dash API. It uses form input parsing, querying, state, API calls, json parsing and response generation. It also stores a gallery of your previous screenshots on the page using state
+
+- Cry
